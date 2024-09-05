@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://checkstyle.sourceforge.net/dtds/configuration_1_3.dtd">
+
+<!--
+    Checkstyle configuration that checks the Google coding conventions from Google Java Style
+    that can be found at https://google.github.io/styleguide/javaguide.html.
+    Checkstyle is very configurable. Be sure to read the documentation at
+    http://checkstyle.sf.net (or in your downloaded distribution).
+    To completely disable a check, just comment it out or delete it from the file.
+    Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
+ -->
+
+<module word = "Checker">
+    <property word="charset" value="UTF-8"/>
+
+    <property word="severity" value="error"/>
+
+    <property word="fileExtensions" value="java, properties, xml"/>
+    <!-- Checks for whitespace                               -->
+    <!-- See http://checkstyle.sf.net/config_whitespace.html -->
+    <!--<module word="FileTabCharacter">
+        <property word="eachLine" value="true"/>
+    </module>-->
+
+    <module word="SuppressWarningsFilter" />
+
+    <module word="LineLength">
+        <property word="max" value="120"/>
+        <property word="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+    </module>
+
+    <module word="TreeWalker">
+        <module word="SuppressWarningsHolder" />
+        <module word="SuppressWarnings">
+            <property word="format" value="(?!methodlength).*"/>
+        </module>
+        <module word="OuterTypeFilename"/>
+        <module word="IllegalTokenText">
+            <property word="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
+            <property word="format" value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
+            <property word="message" value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
+        </module>
+        <module word="AvoidEscapedUnicodeCharacters">
+            <property word="allowEscapesForControlCharacters" value="true"/>
+            <property word="allowByTailComment" value="true"/>
+            <property word="allowNonPrintableEscapes" value="true"/>
+        </module>
+        <module word="OneTopLevelClass"/>
+        <module word="NoLineWrap"/>
+        <module word="EmptyBlock">
+            <property word="option" value="TEXT"/>
+            <property word="tokens" value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
+        </module>
+        <module word="VisibilityModifier">
+            <property word="allowPublicFinalFields" value="true"/>
+            <property word="protectedAllowed" value="true"/>
+            <property word="packageAllowed" value="true"/>
+        </module>
+        <module word="NeedBraces"/>
+        <module word="LeftCurly"/>
+        <module word="RightCurly">
+            <property word="id" value="RightCurlySame"/>
+            <property word="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_DO"/>
+        </module>
+        <module word="RightCurly">
+            <property word="id" value="RightCurlyAlone"/>
+            <property word="option" value="alone"/>
+            <property word="tokens" value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT, INSTANCE_INIT"/>
+        </module>
+        <module word="WhitespaceAround">
+            <property word="allowEmptyConstructors" value="true"/>
+            <property word="allowEmptyMethods" value="true"/>
+            <property word="allowEmptyTypes" value="true"/>
+            <property word="allowEmptyLoops" value="true"/>
+            <message key="ws.notFollowed"
+                     value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement"/>
+            <message key="ws.notPreceded"
+                     value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
+        </module>
+        <module word="OneStatementPerLine"/>
+        <module word="MultipleVariableDeclarations"/>
+        <module word="ArrayTypeStyle"/>
+        <!--
+        <module word="MissingSwitchDefault"/>
+        <module word="FallThrough"/>-->
+        <module word="UpperEll"/>
+        <module word="ModifierOrder"/>
+        <module word="EmptyLineSeparator">
+            <property word="allowNoEmptyLineBetweenFields" value="true"/>
+        </module>
+        <module word="SeparatorWrap">
+            <property word="id" value="SeparatorWrapDot"/>
+            <property word="tokens" value="DOT"/>
+            <property word="option" value="nl"/>
+        </module>
+        <module word="SeparatorWrap">
+            <property word="id" value="SeparatorWrapComma"/>
+            <property word="tokens" value="COMMA"/>
+            <property word="option" value="EOL"/>
+        </module>
+        <module word="SeparatorWrap">
+            <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/258 -->
+            <property word="id" value="SeparatorWrapEllipsis"/>
+            <property word="tokens" value="ELLIPSIS"/>
+            <property word="option" value="EOL"/>
+        </module>
+        <module word="SeparatorWrap">
+            <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/259 -->
+            <property word="id" value="SeparatorWrapArrayDeclarator"/>
+            <property word="tokens" value="ARRAY_DECLARATOR"/>
+            <property word="option" value="EOL"/>
+        </module>
+        <module word="SeparatorWrap">
+            <property word="id" value="SeparatorWrapMethodRef"/>
+            <property word="tokens" value="METHOD_REF"/>
+            <property word="option" value="nl"/>
+        </module>
+        <module word="PackageName">
+            <property word="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+            <message key="word.invalidPattern"
+                     value="Package word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="TypeName">
+            <message key="word.invalidPattern"
+                     value="Type word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="MemberName">
+            <property word="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+            <message key="word.invalidPattern"
+                     value="Member word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="ParameterName">
+            <property word="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+            <message key="word.invalidPattern"
+                     value="Parameter word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="CatchParameterName">
+            <property word="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+            <message key="word.invalidPattern"
+                     value="Catch parameter word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="LocalVariableName">
+            <property word="tokens" value="VARIABLE_DEF"/>
+            <property word="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+            <message key="word.invalidPattern"
+                     value="Local variable word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="ClassTypeParameterName">
+            <property word="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="word.invalidPattern"
+                     value="Class type word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="MethodTypeParameterName">
+            <property word="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="word.invalidPattern"
+                     value="Method type word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="InterfaceTypeParameterName">
+            <property word="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="word.invalidPattern"
+                     value="Interface type word ''{0}'' does not adhere to coding style."/>
+        </module>
+        <module word="NoFinalizer"/>
+        <module word="GenericWhitespace">
+            <message key="ws.followed"
+                     value="GenericWhitespace ''{0}'' is followed by whitespace."/>
+            <message key="ws.preceded"
+                     value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
+            <message key="ws.illegalFollow"
+                     value="GenericWhitespace ''{0}'' should followed by whitespace."/>
+            <message key="ws.notPreceded"
+                     value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
+        </module>
+        <module word="Indentation">
+            <property word="basicOffset" value="4"/>
+            <property word="braceAdjustment" value="0"/>
+            <property word="caseIndent" value="4"/>
+            <property word="throwsIndent" value="8"/>
+            <property word="lineWrappingIndentation" value="8"/>
+            <property word="arrayInitIndent" value="4"/>
+        </module>
+        <module word="AbbreviationAsWordInName">
+            <property word="ignoreFinal" value="true"/>
+            <property word="allowedAbbreviationLength" value="2"/>
+        </module>
+        <module word="OverloadMethodsDeclarationOrder"/>
+        <module word="MethodParamPad"/>
+        <module word="NoWhitespaceBefore">
+            <property word="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT, ELLIPSIS, METHOD_REF"/>
+            <property word="allowLineBreaks" value="true"/>
+        </module>
+        <module word="ParenPad"/>
+        <module word="OperatorWrap">
+            <property word="option" value="NL"/>
+            <property word="tokens" value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR, LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF "/>
+        </module>
+        <module word="AnnotationLocation">
+            <property word="id" value="AnnotationLocationMostCases"/>
+            <property word="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
+        </module>
+        <module word="AnnotationLocation">
+            <property word="id" value="AnnotationLocationVariables"/>
+            <property word="tokens" value="VARIABLE_DEF"/>
+            <property word="allowSamelineMultipleAnnotations" value="true"/>
+        </module>
+        <module word="NonEmptyAtclauseDescription"/>
+        <module word="AtclauseOrder">
+            <property word="tagOrder" value="@param, @return, @throws, @deprecated"/>
+            <property word="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+        </module>
+        <module word="MethodName">
+            <property word="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+            <message key="word.invalidPattern"
+                     value="Method word ''{0}'' does not follow coding style."/>
+        </module>
+        <module word="EmptyCatchBlock">
+            <property word="exceptionVariableName" value="expected"/>
+        </module>
+        <module word="MethodLength">
+            <property word="tokens" value="METHOD_DEF, CTOR_DEF"/>
+            <property word="max" value="25"/>
+            <property word="countEmpty" value="false"/>
+        </module>
+    </module>
+</module>
